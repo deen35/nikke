@@ -136,6 +136,11 @@
                                 <label><input type="radio" name="defenseType" value="34606"> 防御型 (25260*1.37)</label>
                                 <label><input type="radio" name="defenseType" value="0"> 无视防御 (0)</label>
                                 <label><input type="radio" name="defenseType" value="21332"> 国服用255级防御型 (15571*1.37)</label>
+                                <!-- 自定义防御值 -->
+                                <label><input type="radio" name="defenseType" id="customDefenseRadio"> 自定义（需手动计算收藏品）:</label>
+                                <div class="custom-input">
+                                    <input type="number" id="customDefenseValue" min="0" value="0" step="1" disabled>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -272,7 +277,7 @@
         </main>
 
         <footer>
-            <p>©  妮姬冠军竞技场计算器 | by 迪恩deen33</p>
+            <p>©  妮姬冠军竞技场计算器v1.1 | by 迪恩deen33</p>
         </footer>
     </div>
 

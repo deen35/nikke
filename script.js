@@ -59,6 +59,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         saveToLocalStorage();
     });
+    
+    // 自定义防御值单选按钮事件
+    document.getElementById('customDefenseRadio').addEventListener('change', function() {
+        document.getElementById('customDefenseValue').disabled = !this.checked;
+    });
+    
+    // 自定义防御值输入框事件
+    document.getElementById('customDefenseValue').addEventListener('input', function() {
+        if (this.value !== '') {
+            document.getElementById('customDefenseRadio').checked = true;
+        }
+    });
 });
 
 // 初始化角色下拉菜单
@@ -138,6 +150,15 @@ function getCurrentCharacterData() {
     }
 }
 
+// 获取防御值
+function getDefenseValue() {
+    if (document.getElementById('customDefenseRadio').checked) {
+        return parseFloat(document.getElementById('customDefenseValue').value) || 0;
+    } else {
+        return parseFloat(document.querySelector('input[name="defenseType"]:checked').value) || 0;
+    }
+}
+
 // 格式化数字显示，保留2位小数
 function formatNumber(num) {
     return Number(num).toLocaleString('zh-CN', {
@@ -183,7 +204,8 @@ function calculateDamage() {
         otherAttackBonus += parseFloat(document.getElementById('customOtherAttackBonus').value) || 0;
     }
     
-    const defenseValue = parseFloat(document.querySelector('input[name="defenseType"]:checked').value) || 0;
+    // 获取防御值
+    const defenseValue = getDefenseValue();
     
     // 获取他人增伤值（多选）
     let otherDamageBonus = 0;
@@ -278,7 +300,11 @@ function resetCalculator() {
     document.getElementById('customOtherAttackBonus').value = 0;
     document.getElementById('customOtherAttackBonus').disabled = true;
     
-    document.querySelector('input[name="defenseType"][value="21469"]').checked = true;
+    // 重置防御区
+    document.querySelector('input[name="defenseType"][value="29411"]').checked = true;
+    document.getElementById('customDefenseRadio').checked = false;
+    document.getElementById('customDefenseValue').value = 0;
+    document.getElementById('customDefenseValue').disabled = true;
     
     // 重置多选框
     document.querySelectorAll('input[name="otherDamageBonus"]').forEach(checkbox => {
@@ -339,7 +365,10 @@ function saveToLocalStorage() {
         customAttackBonusCheck: document.getElementById('customAttackBonusCheck').checked,
         customOtherAttackBonus: document.getElementById('customOtherAttackBonus').value,
         
+        // 保存防御区状态
         defenseType: document.querySelector('input[name="defenseType"]:checked').value,
+        customDefenseRadio: document.getElementById('customDefenseRadio').checked,
+        customDefenseValue: document.getElementById('customDefenseValue').value,
         
         // 保存多选框状态
         otherDamageBonus: Array.from(document.querySelectorAll('input[name="otherDamageBonus"]:checked'))
@@ -401,9 +430,16 @@ function loadSavedData() {
         document.getElementById('customOtherAttackBonus').value = data.customOtherAttackBonus || 0;
         document.getElementById('customOtherAttackBonus').disabled = !data.customAttackBonusCheck;
         
-        // 恢复单选按钮
-        const defenseRadio = document.querySelector(`input[name="defenseType"][value="${data.defenseType}"]`);
-        if (defenseRadio) defenseRadio.checked = true;
+        // 恢复防御区
+        if (data.customDefenseRadio) {
+            document.getElementById('customDefenseRadio').checked = true;
+            document.getElementById('customDefenseValue').value = data.customDefenseValue || 0;
+            document.getElementById('customDefenseValue').disabled = false;
+        } else {
+            const defenseRadio = document.querySelector(`input[name="defenseType"][value="${data.defenseType}"]`);
+            if (defenseRadio) defenseRadio.checked = true;
+            document.getElementById('customDefenseValue').disabled = true;
+        }
         
         // 恢复多选框
         document.querySelectorAll('input[name="otherDamageBonus"]').forEach(checkbox => {
