@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIKKE冠军场400级核爆伤害计算器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>NIKKE冠军场400级核爆伤害计算器</h1>
+            <p>可自定义角色数据（适用国服）并计算伤害值</p>
+        </header>
+
+        <main>
+            <section class="character-selection">
+                <h2>选择角色</h2>
+                <div class="selection-container">
+                    <div class="dropdown-container">
+                        <label for="characterDropdown">选择角色:</label>
+                        <select id="characterDropdown" class="character-dropdown">
+                            <option value="">-- 请选择角色 --</option>
+                            <!-- 角色选项将通过JavaScript动态生成 -->
+                        </select>
+                    </div>
+                    <div class="character-panel" id="characterPanel">
+                        <div class="panel-placeholder">
+                            <p>请从下拉菜单中选择一个角色</p>
+                        </div>
+                        <div class="panel-content" style="display: none;">
+                            <div class="panel-header">
+                                <img id="panelAvatar" src="" alt="角色头像" class="panel-avatar">
+                                <div class="panel-info">
+                                    <h3 id="panelName">角色名称</h3>
+                                    <div class="panel-stats">
+                                        <div class="panel-stat">
+                                            <label>基础攻击:</label>
+                                            <span id="panelBaseAttack">0</span>
+                                        </div>
+                                        <div class="panel-stat">
+                                            <label>攻击提升:</label>
+                                            <span id="panelAttackBonus">0%</span>
+                                        </div>
+                                        <div class="panel-stat">
+                                            <label>增伤值:</label>
+                                            <span id="panelDamageBonus">0%</span>
+                                        </div>
+                                        <div class="panel-stat">
+                                            <label>易伤值:</label>
+                                            <span id="panelVulnerability">0%</span>
+                                        </div>
+                                        <div class="panel-stat">
+                                            <label>技能倍率:</label>
+                                            <span id="panelSkillMultiplier">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 新增自定义角色区域 -->
+            <section class="custom-character">
+                <h2>自定义角色</h2>
+                <div class="custom-character-container">
+                    <div class="custom-character-toggle">
+                        <label>
+                            <input type="checkbox" id="useCustomCharacter">
+                            使用自定义角色数据
+                        </label>
+                    </div>
+                    <div class="custom-character-fields" id="customCharacterFields" style="display: none;">
+                        <div class="custom-character-grid">
+                            <div class="custom-character-item">
+                                <label for="customBaseAttack">基础攻击:</label>
+                                <input type="number" id="customBaseAttack" min="0" value="0" step="1">
+                            </div>
+                            <div class="custom-character-item">
+                                <label for="customAttackBonus">攻击提升(%):</label>
+                                <input type="number" id="customAttackBonus" min="0" value="0" step="0.1">
+                            </div>
+                            <div class="custom-character-item">
+                                <label for="customDamageBonus">增伤值(%):</label>
+                                <input type="number" id="customDamageBonusValue" min="0" value="0" step="0.1">
+                            </div>
+                            <div class="custom-character-item">
+                                <label for="customVulnerability">易伤值(%):</label>
+                                <input type="number" id="customVulnerabilityValue" value="0" step="0.1">
+                            </div>
+                            <div class="custom-character-item">
+                                <label for="customSkillMultiplier">技能倍率(%):</label>
+                                <input type="number" id="customSkillMultiplier" min="0" value="100" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="calculation-settings">
+                <h2>伤害计算设置</h2>
+                <div class="settings-grid">
+                    <!-- 攻击区设置 -->
+                    <div class="setting-group">
+                        <h3>攻击区设置</h3>
+                        <div class="setting-item">
+                            <label>装备攻击词条(%):</label>
+                            <input type="number" id="equipmentAttack" min="0" value="0" step="0.1">
+                        </div>
+                        <div class="setting-item">
+                            <label>他人攻击提升:</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="otherAttackBonus" value="0" checked disabled> 无 (0%)</label>
+                                <label><input type="checkbox" name="otherAttackBonus" value="77.55"> 小红帽 (77.55%)</label>
+                                <label><input type="checkbox" name="otherAttackBonus" value="66"> 丽塔 (66%)</label>
+                                <!-- 自定义输入 -->
+                                <div class="custom-input">
+                                    <label><input type="checkbox" id="customAttackBonusCheck"> 自定义:</label>
+                                    <input type="number" id="customAttackBonus" min="0" value="0" step="0.1" disabled>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 防御区设置 -->
+                    <div class="setting-group">
+                        <h3>防御区设置</h3>
+                        <div class="setting-item">
+                            <label>受击角色类型:</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="defenseType" value="21469" checked> 攻击型 (21469)</label>
+                                <label><input type="radio" name="defenseType" value="23365"> 辅助型 (23365)</label>
+                                <label><input type="radio" name="defenseType" value="25260"> 防御型 (25260)</label>
+                                <label><input type="radio" name="defenseType" value="0"> 无视防御 (0)</label>
+                                <label><input type="radio" name="defenseType" value="15571"> 国服用255级防御型 (15571)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 增伤区设置 -->
+                    <div class="setting-group">
+                        <h3>增伤区设置</h3>
+                        <div class="setting-item">
+                            <label>他人增伤值:</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="otherDamageBonus" value="0" checked disabled> 无 (0%)</label>
+                                <label><input type="checkbox" name="otherDamageBonus" value="115.05"> 特蕾娜 (115.05%)</label>
+                                <label><input type="checkbox" name="otherDamageBonus" value="35.45"> 娜由塔 (35.45%)</label>
+                                <label><input type="checkbox" name="otherDamageBonus" value="10.13"> 小美人鱼3 (10.13%)</label>
+                                <label><input type="checkbox" name="otherDamageBonus" value="4"> 小美人鱼1 (4%)</label>
+                                <!-- 自定义输入 -->
+                                <div class="custom-input">
+                                    <label><input type="checkbox" id="customDamageBonusCheck"> 自定义:</label>
+                                    <input type="number" id="customDamageBonus" min="0" value="0" step="0.1" disabled>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 易伤区设置 -->
+                    <div class="setting-group">
+                        <h3>易伤区设置</h3>
+                        <div class="setting-item">
+                            <label>他人易伤值:</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="otherVulnerability" value="0" checked disabled> 无 (0%)</label>
+                                <label><input type="checkbox" name="otherVulnerability" value="39.26"> 白兔 (39.26%)</label>
+                                <label><input type="checkbox" name="otherVulnerability" value="5.05"> 小美人鱼 (5.05%)</label>
+                                <label><input type="checkbox" name="otherVulnerability" value="-9.69"> 减伤魔方 (-9.69%)</label>
+                                <label><input type="checkbox" name="otherVulnerability" value="-17"> SR收藏品 (-17%)</label>
+                                <label><input type="checkbox" name="otherVulnerability" value="-8"> 诺雅 (-8%)</label>
+                                <label><input type="checkbox" name="otherVulnerability" value="-10.66"> 诺伊斯 (-10.66%)</label>
+                                <label><input type="checkbox" name="otherVulnerability" value="-35.14"> 牡丹 (-35.14%)</label>
+                                <label><input type="checkbox" name="otherVulnerability" value="-14.14"> 尼罗 (-14.14%)</label>
+                                <label><input type="checkbox" name="otherVulnerability" value="-8.87"> 贝伊 (-8.87%)</label>
+                                <!-- 自定义输入 -->
+                                <div class="custom-input">
+                                    <label><input type="checkbox" id="customVulnerabilityCheck"> 自定义:</label>
+                                    <input type="number" id="customVulnerability" value="0" step="0.1" disabled>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 其他设置 -->
+                    <div class="setting-group">
+                        <h3>其他设置</h3>
+                        <div class="setting-item">
+                            <label>优越属性:</label>
+                            <div class="checkbox-with-input">
+                                <label><input type="checkbox" id="superiorAttribute"> 有优越</label>
+                                <input type="number" id="superiorValue" min="0" value="0" step="0.1" disabled>
+                                <span>%</span>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label>爆裂补正:</label>
+                            <label><input type="checkbox" id="burstCorrection"> 有爆裂补正 (1.5x)</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="damage-calculation">
+                <h2>伤害计算</h2>
+                <div class="calculation-controls">
+                    <button id="calculateBtn" class="btn-primary">计算伤害</button>
+                    <button id="resetBtn" class="btn-secondary">重置</button>
+                </div>
+                
+                <div class="calculation-steps">
+                    <h3>乘区累积数值</h3>
+                    <div class="step-item">
+                        <label>攻击区数值:</label>
+                        <span id="stepAttack">0.00</span>
+                    </div>
+                    <div class="step-item">
+                        <label>防御减伤后基数:</label>
+                        <span id="stepAfterDefense">0.00</span>
+                    </div>
+                    <div class="step-item">
+                        <label>技能倍率乘区:</label>
+                        <span id="stepAfterSkill">0.00%</span>
+                    </div>
+                    <div class="step-item">
+                        <label>增伤区乘区:</label>
+                        <span id="stepAfterDamageBonus">0.00%</span>
+                    </div>
+                    <div class="step-item">
+                        <label>易伤区乘区:</label>
+                        <span id="stepAfterVulnerability">0.00%</span>
+                    </div>
+                    <div class="step-item">
+                        <label>优越属性乘区:</label>
+                        <span id="stepAfterSuperior">0.00%</span>
+                    </div>
+                    <div class="step-item">
+                        <label>爆裂补正乘区:</label>
+                        <span id="stepAfterBurst">0.00%</span>
+                    </div>
+                </div>
+
+                <div class="result-container">
+                    <div class="result-item final-damage">
+                        <label>最终伤害:</label>
+                        <span id="finalDamage">0.00</span>
+                    </div>
+                    
+                    <!-- 新增参考值区域 -->
+                    <div class="reference-values">
+                        <h3>参考体力值</h3>
+                        <div class="reference-item">
+                            <label>火力型:</label>
+                            <span>3,179,056</span>
+                        </div>
+                        <div class="reference-item">
+                            <label>辅助型:</label>
+                            <span>3,463,484</span>
+                        </div>
+                        <div class="reference-item">
+                            <label>防御型:</label>
+                            <span>3,747,915</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>©  妮姬冠军场计算器 | by 迪恩deen33</p>
+        </footer>
+    </div>
+
+    <script src="characters.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
