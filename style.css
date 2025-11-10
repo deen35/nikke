@@ -7,101 +7,103 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
+    line-height: 1.5;
     color: #333;
     background-color: #f5f5f5;
+    font-size: 14px;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 }
 
-/* 头部样式 */
+/* 头部样式 - 移动端优化 */
 header {
     text-align: center;
-    margin-bottom: 30px;
-    padding: 20px;
+    margin-bottom: 20px;
+    padding: 15px 10px;
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+header p {
+    font-size: 0.85rem;
+    opacity: 0.9;
 }
 
 /* 主内容区域 */
 main {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 20px;
 }
 
 section {
     background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+/* 标题优化 - 移动端缩小 */
 h2 {
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
     color: #444;
+    font-size: 1.2rem;
 }
 
 h3 {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     color: #666;
+    font-size: 1rem;
 }
 
-/* 角色选择区域 */
+/* 角色选择区域 - 紧凑布局 */
 .selection-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
 .dropdown-container {
     display: flex;
-    align-items: center;
-    gap: 15px;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .dropdown-container label {
     font-weight: 500;
-    white-space: nowrap;
+    font-size: 0.9rem;
 }
 
 .character-dropdown {
-    flex: 1;
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.9rem;
     background-color: white;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.character-dropdown:focus {
-    outline: none;
-    border-color: #2575fc;
-    box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.1);
-}
-
-/* 角色面板样式 */
+/* 角色面板样式 - 紧凑布局 */
 .character-panel {
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
     background: #f9f9f9;
-    min-height: 150px;
+    min-height: 120px;
 }
 
 .panel-placeholder {
@@ -111,50 +113,45 @@ h3 {
     height: 100%;
     color: #999;
     font-style: italic;
-}
-
-.panel-content {
-    display: none;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 .panel-header {
     display: flex;
-    gap: 20px;
+    gap: 12px;
     align-items: flex-start;
 }
 
 .panel-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
     object-fit: cover;
-    border: 2px solid #ddd;
-}
-
-.panel-info {
-    flex: 1;
+    border: 1px solid #ddd;
 }
 
 .panel-info h3 {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: #333;
-    font-size: 1.4rem;
+    font-size: 1.1rem;
 }
 
 .panel-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+    grid-template-columns: 1fr;
+    gap: 6px;
 }
 
 .panel-stat {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 12px;
+    padding: 6px 8px;
     background: white;
-    border-radius: 6px;
-    border-left: 4px solid #2575fc;
+    border-radius: 4px;
+    border-left: 3px solid #2575fc;
+    font-size: 0.85rem;
 }
 
 .panel-stat label {
@@ -167,161 +164,174 @@ h3 {
     color: #2575fc;
 }
 
-/* 自定义角色区域 */
+/* 自定义角色区域 - 紧凑布局 */
 .custom-character-container {
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .custom-character-toggle {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .custom-character-toggle label {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     font-weight: 500;
     cursor: pointer;
-}
-
-.custom-character-toggle input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
+    font-size: 0.9rem;
 }
 
 .custom-character-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    padding: 15px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
     background: #f8f9fa;
-    border-radius: 8px;
+    border-radius: 6px;
     border: 1px solid #e9ecef;
 }
 
 .custom-character-item {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
 }
 
 .custom-character-item label {
     font-weight: 500;
     color: #495057;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .custom-character-item input {
-    padding: 8px 12px;
+    padding: 6px 8px;
     border: 1px solid #ced4da;
     border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.15s ease-in-out;
+    font-size: 0.9rem;
 }
 
-.custom-character-item input:focus {
-    outline: none;
-    border-color: #2575fc;
-    box-shadow: 0 0 0 2px rgba(37, 117, 252, 0.1);
-}
-
-/* 设置区域 */
+/* 设置区域 - 紧凑布局 */
 .settings-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 15px;
 }
 
 .setting-group {
-    padding: 15px;
+    padding: 12px;
     background: #f9f9f9;
-    border-radius: 8px;
+    border-radius: 6px;
 }
 
 .setting-item {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 6px;
+    margin-bottom: 12px;
 }
 
 .setting-item label {
     font-weight: 500;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
 }
 
 .setting-item input[type="number"],
 .setting-item select {
-    padding: 8px 12px;
+    padding: 6px 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
+/* 复选框和单选框组 - 紧凑布局 */
 .radio-group,
 .checkbox-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .radio-group label,
 .checkbox-group label {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-weight: normal;
     cursor: pointer;
+    font-size: 0.85rem;
+    line-height: 1.3;
 }
 
-.checkbox-with-input {
+/* 防御区自定义输入样式 */
+.radio-group .custom-input {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    margin-top: 4px;
+    margin-left: 15px;
 }
 
-.checkbox-with-input input[type="number"] {
-    width: 80px;
+.radio-group .custom-input input {
+    width: 100px;
+    padding: 4px 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.85rem;
 }
 
 /* 自定义输入样式 */
 .custom-input {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-    padding: 8px;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 6px;
     background: #f8f9fa;
-    border-radius: 6px;
+    border-radius: 4px;
 }
 
 .custom-input label {
     font-weight: 500;
     white-space: nowrap;
     margin-bottom: 0;
+    font-size: 0.85rem;
 }
 
 .custom-input input {
-    width: 80px;
-    padding: 6px 8px;
+    width: 70px;
+    padding: 4px 6px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 0.85rem;
 }
 
-/* 伤害计算区域 */
+.checkbox-with-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-with-input input[type="number"] {
+    width: 60px;
+}
+
+/* 伤害计算区域 - 紧凑布局 */
 .calculation-controls {
     display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .btn-primary, .btn-secondary {
-    padding: 12px 25px;
+    padding: 10px 16px;
     border: none;
-    border-radius: 5px;
-    font-size: 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    flex: 1;
 }
 
 .btn-primary {
@@ -334,41 +344,38 @@ h3 {
     color: #333;
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.btn-secondary:hover {
-    background: #e0e0e0;
-}
-
-/* 计算步骤 */
+/* 计算步骤 - 紧凑布局 */
 .calculation-steps {
-    margin-bottom: 20px;
-    padding: 15px;
+    margin-bottom: 15px;
+    padding: 12px;
     background: #f9f9f9;
-    border-radius: 8px;
+    border-radius: 6px;
+}
+
+.calculation-steps h3 {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
 }
 
 .step-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
+    padding: 6px 0;
     border-bottom: 1px solid #e0e0e0;
+    font-size: 0.85rem;
 }
 
 .step-item:last-child {
     border-bottom: none;
 }
 
-/* 数字显示样式 */
 .step-item span {
     font-family: 'Courier New', monospace;
     font-weight: bold;
-    min-width: 120px;
+    min-width: 90px;
     text-align: right;
+    font-size: 0.8rem;
 }
 
 /* 数字类型显示为蓝色 */
@@ -386,49 +393,50 @@ h3 {
     color: #28a745;
 }
 
-/* 结果区域 */
+/* 结果区域 - 紧凑布局 */
 .result-container {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .final-damage {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 15px;
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     color: white;
-    border-radius: 8px;
-    font-size: 1.3rem;
+    border-radius: 6px;
+    font-size: 1rem;
     font-weight: bold;
 }
 
 .final-damage span {
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-family: 'Courier New', monospace;
 }
 
-/* 新增参考值区域样式 */
+/* 参考值区域 - 紧凑布局 */
 .reference-values {
-    margin-top: 20px;
-    padding: 15px;
+    margin-top: 15px;
+    padding: 12px;
     background: #f9f9f9;
-    border-radius: 8px;
+    border-radius: 6px;
 }
 
 .reference-values h3 {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: #666;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
 }
 
 .reference-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
+    padding: 6px 0;
     border-bottom: 1px solid #e0e0e0;
+    font-size: 0.85rem;
 }
 
 .reference-item:last-child {
@@ -449,14 +457,35 @@ h3 {
 /* 页脚样式 */
 footer {
     text-align: center;
-    margin-top: 40px;
-    padding: 20px;
+    margin-top: 30px;
+    padding: 15px;
     color: #777;
     border-top: 1px solid #e0e0e0;
+    font-size: 0.8rem;
 }
 
-/* 响应式设计 */
+/* 平板设备响应式 */
 @media (min-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
+    
+    h3 {
+        font-size: 1.1rem;
+    }
+    
     .settings-grid {
         grid-template-columns: 1fr 1fr;
     }
@@ -474,11 +503,21 @@ footer {
     .custom-character-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+    .calculation-controls {
+        flex-direction: row;
+    }
+    
+    .btn-primary, .btn-secondary {
+        flex: none;
+    }
 }
 
+/* 桌面设备响应式 */
 @media (min-width: 992px) {
     main {
         grid-template-columns: 1fr 1fr;
+        gap: 25px;
     }
     
     .character-selection {
@@ -509,11 +548,7 @@ footer {
     .dropdown-container {
         flex-direction: column;
         align-items: flex-start;
-        min-width: 200px;
-    }
-    
-    .character-dropdown {
-        width: 100%;
+        min-width: 180px;
     }
     
     .panel-stats {
@@ -525,19 +560,47 @@ footer {
     }
 }
 
-@media (max-width: 768px) {
-    .step-item span {
-        min-width: 100px;
-        font-size: 0.9rem;
+/* 大屏手机优化 */
+@media (max-width: 767px) and (min-width: 480px) {
+    .container {
+        padding: 12px;
     }
     
-    .final-damage span {
+    .panel-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .custom-character-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 小屏手机优化 */
+@media (max-width: 479px) {
+    .container {
+        padding: 8px;
+    }
+    
+    section {
+        padding: 12px 10px;
+    }
+    
+    header {
+        padding: 12px 8px;
+    }
+    
+    header h1 {
         font-size: 1.2rem;
+    }
+    
+    h2 {
+        font-size: 1.1rem;
     }
     
     .panel-header {
         flex-direction: column;
         text-align: center;
+        gap: 8px;
     }
     
     .panel-avatar {
@@ -547,45 +610,71 @@ footer {
     .custom-input {
         flex-direction: column;
         align-items: flex-start;
-        gap: 5px;
+        gap: 4px;
     }
     
     .custom-input input {
         width: 100%;
     }
     
-    .dropdown-container {
+    .radio-group .custom-input {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .radio-group .custom-input input {
+        width: 80px;
+    }
+    
+    .checkbox-with-input {
         flex-direction: column;
         align-items: flex-start;
+        gap: 6px;
     }
     
-    .character-dropdown {
-        width: 100%;
+    .step-item span {
+        min-width: 80px;
+        font-size: 0.75rem;
     }
     
-    .custom-character-grid {
-        grid-template-columns: 1fr;
+    .final-damage span {
+        font-size: 1rem;
     }
 }
 
-@media (max-width: 480px) {
-    .container {
-        padding: 10px;
+/* 超小屏手机优化 */
+@media (max-width: 360px) {
+    body {
+        font-size: 13px;
     }
     
-    header h1 {
-        font-size: 2rem;
+    .container {
+        padding: 6px;
     }
     
     section {
-        padding: 15px;
+        padding: 10px 8px;
     }
     
-    .calculation-controls {
-        flex-direction: column;
+    header h1 {
+        font-size: 1.1rem;
+    }
+    
+    h2 {
+        font-size: 1rem;
     }
     
     .btn-primary, .btn-secondary {
-        width: 100%;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .step-item {
+        font-size: 0.8rem;
+    }
+    
+    .step-item span {
+        min-width: 70px;
+        font-size: 0.7rem;
     }
 }
