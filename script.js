@@ -15,19 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('superiorValue').disabled = !this.checked;
     });
     
-    // 自定义攻击提升复选框事件
+    // 自定义攻击提升复选框事件（他人攻击区）
     document.getElementById('customAttackBonusCheck').addEventListener('change', function() {
-        document.getElementById('customAttackBonus').disabled = !this.checked;
+        document.getElementById('customOtherAttackBonus').disabled = !this.checked;
     });
     
-    // 自定义增伤值复选框事件
+    // 自定义增伤值复选框事件（他人增伤区）
     document.getElementById('customDamageBonusCheck').addEventListener('change', function() {
-        document.getElementById('customDamageBonus').disabled = !this.checked;
+        document.getElementById('customOtherDamageBonus').disabled = !this.checked;
     });
     
-    // 自定义易伤值复选框事件
+    // 自定义易伤值复选框事件（他人易伤区）
     document.getElementById('customVulnerabilityCheck').addEventListener('change', function() {
-        document.getElementById('customVulnerability').disabled = !this.checked;
+        document.getElementById('customOtherVulnerability').disabled = !this.checked;
     });
     
     // 角色下拉菜单事件
@@ -127,9 +127,9 @@ function getCurrentCharacterData() {
         // 使用自定义角色数据
         return {
             baseAttack: parseFloat(document.getElementById('customBaseAttack').value) || 0,
-            attackBonus: parseFloat(document.getElementById('customAttackBonus').value) || 0,
-            damageBonus: parseFloat(document.getElementById('customDamageBonusValue').value) || 0,
-            vulnerability: parseFloat(document.getElementById('customVulnerabilityValue').value) || 0,
+            attackBonus: parseFloat(document.getElementById('customCharacterAttackBonus').value) || 0,
+            damageBonus: parseFloat(document.getElementById('customCharacterDamageBonus').value) || 0,
+            vulnerability: parseFloat(document.getElementById('customCharacterVulnerability').value) || 0,
             skillMultiplier: parseFloat(document.getElementById('customSkillMultiplier').value) || 100
         };
     } else {
@@ -173,12 +173,14 @@ function calculateDamage() {
     // 获取他人攻击提升值（多选）
     let otherAttackBonus = 0;
     document.querySelectorAll('input[name="otherAttackBonus"]:checked').forEach(checkbox => {
-        otherAttackBonus += parseFloat(checkbox.value);
+        if (checkbox.value !== "0") { // 排除"无"选项
+            otherAttackBonus += parseFloat(checkbox.value);
+        }
     });
     
-    // 获取自定义攻击提升值
+    // 获取自定义攻击提升值（他人攻击区）
     if (document.getElementById('customAttackBonusCheck').checked) {
-        otherAttackBonus += parseFloat(document.getElementById('customAttackBonus').value) || 0;
+        otherAttackBonus += parseFloat(document.getElementById('customOtherAttackBonus').value) || 0;
     }
     
     const defenseValue = parseFloat(document.querySelector('input[name="defenseType"]:checked').value) || 0;
@@ -186,23 +188,27 @@ function calculateDamage() {
     // 获取他人增伤值（多选）
     let otherDamageBonus = 0;
     document.querySelectorAll('input[name="otherDamageBonus"]:checked').forEach(checkbox => {
-        otherDamageBonus += parseFloat(checkbox.value);
+        if (checkbox.value !== "0") { // 排除"无"选项
+            otherDamageBonus += parseFloat(checkbox.value);
+        }
     });
     
-    // 获取自定义增伤值
+    // 获取自定义增伤值（他人增伤区）
     if (document.getElementById('customDamageBonusCheck').checked) {
-        otherDamageBonus += parseFloat(document.getElementById('customDamageBonus').value) || 0;
+        otherDamageBonus += parseFloat(document.getElementById('customOtherDamageBonus').value) || 0;
     }
     
     // 获取他人易伤值（多选）
     let otherVulnerability = 0;
     document.querySelectorAll('input[name="otherVulnerability"]:checked').forEach(checkbox => {
-        otherVulnerability += parseFloat(checkbox.value);
+        if (checkbox.value !== "0") { // 排除"无"选项
+            otherVulnerability += parseFloat(checkbox.value);
+        }
     });
     
-    // 获取自定义易伤值
+    // 获取自定义易伤值（他人易伤区）
     if (document.getElementById('customVulnerabilityCheck').checked) {
-        otherVulnerability += parseFloat(document.getElementById('customVulnerability').value) || 0;
+        otherVulnerability += parseFloat(document.getElementById('customOtherVulnerability').value) || 0;
     }
     
     // 获取优越属性
@@ -267,10 +273,10 @@ function resetCalculator() {
         checkbox.checked = (checkbox.value === "0");
     });
     
-    // 重置自定义攻击提升
+    // 重置自定义攻击提升（他人攻击区）
     document.getElementById('customAttackBonusCheck').checked = false;
-    document.getElementById('customAttackBonus').value = 0;
-    document.getElementById('customAttackBonus').disabled = true;
+    document.getElementById('customOtherAttackBonus').value = 0;
+    document.getElementById('customOtherAttackBonus').disabled = true;
     
     document.querySelector('input[name="defenseType"][value="21469"]').checked = true;
     
@@ -279,19 +285,19 @@ function resetCalculator() {
         checkbox.checked = (checkbox.value === "0");
     });
     
-    // 重置自定义增伤值
+    // 重置自定义增伤值（他人增伤区）
     document.getElementById('customDamageBonusCheck').checked = false;
-    document.getElementById('customDamageBonus').value = 0;
-    document.getElementById('customDamageBonus').disabled = true;
+    document.getElementById('customOtherDamageBonus').value = 0;
+    document.getElementById('customOtherDamageBonus').disabled = true;
     
     document.querySelectorAll('input[name="otherVulnerability"]').forEach(checkbox => {
         checkbox.checked = (checkbox.value === "0");
     });
     
-    // 重置自定义易伤值
+    // 重置自定义易伤值（他人易伤区）
     document.getElementById('customVulnerabilityCheck').checked = false;
-    document.getElementById('customVulnerability').value = 0;
-    document.getElementById('customVulnerability').disabled = true;
+    document.getElementById('customOtherVulnerability').value = 0;
+    document.getElementById('customOtherVulnerability').disabled = true;
     
     // 重置其他选项
     document.getElementById('superiorAttribute').checked = false;
@@ -303,9 +309,9 @@ function resetCalculator() {
     document.getElementById('useCustomCharacter').checked = false;
     document.getElementById('customCharacterFields').style.display = 'none';
     document.getElementById('customBaseAttack').value = 0;
-    document.getElementById('customAttackBonus').value = 0;
-    document.getElementById('customDamageBonusValue').value = 0;
-    document.getElementById('customVulnerabilityValue').value = 0;
+    document.getElementById('customCharacterAttackBonus').value = 0;
+    document.getElementById('customCharacterDamageBonus').value = 0;
+    document.getElementById('customCharacterVulnerability').value = 0;
     document.getElementById('customSkillMultiplier').value = 100;
     
     // 重置显示结果
@@ -331,7 +337,7 @@ function saveToLocalStorage() {
         otherAttackBonus: Array.from(document.querySelectorAll('input[name="otherAttackBonus"]:checked'))
             .map(checkbox => checkbox.value),
         customAttackBonusCheck: document.getElementById('customAttackBonusCheck').checked,
-        customAttackBonus: document.getElementById('customAttackBonus').value,
+        customOtherAttackBonus: document.getElementById('customOtherAttackBonus').value,
         
         defenseType: document.querySelector('input[name="defenseType"]:checked').value,
         
@@ -339,12 +345,12 @@ function saveToLocalStorage() {
         otherDamageBonus: Array.from(document.querySelectorAll('input[name="otherDamageBonus"]:checked'))
             .map(checkbox => checkbox.value),
         customDamageBonusCheck: document.getElementById('customDamageBonusCheck').checked,
-        customDamageBonus: document.getElementById('customDamageBonus').value,
+        customOtherDamageBonus: document.getElementById('customOtherDamageBonus').value,
         
         otherVulnerability: Array.from(document.querySelectorAll('input[name="otherVulnerability"]:checked'))
             .map(checkbox => checkbox.value),
         customVulnerabilityCheck: document.getElementById('customVulnerabilityCheck').checked,
-        customVulnerability: document.getElementById('customVulnerability').value,
+        customOtherVulnerability: document.getElementById('customOtherVulnerability').value,
             
         superiorAttribute: document.getElementById('superiorAttribute').checked,
         superiorValue: document.getElementById('superiorValue').value,
@@ -352,9 +358,9 @@ function saveToLocalStorage() {
         
         // 保存自定义角色数据
         customBaseAttack: document.getElementById('customBaseAttack').value,
-        customAttackBonusValue: document.getElementById('customAttackBonus').value,
-        customDamageBonusValue: document.getElementById('customDamageBonusValue').value,
-        customVulnerabilityValue: document.getElementById('customVulnerabilityValue').value,
+        customCharacterAttackBonus: document.getElementById('customCharacterAttackBonus').value,
+        customCharacterDamageBonus: document.getElementById('customCharacterDamageBonus').value,
+        customCharacterVulnerability: document.getElementById('customCharacterVulnerability').value,
         customSkillMultiplier: document.getElementById('customSkillMultiplier').value
     };
     
@@ -390,10 +396,10 @@ function loadSavedData() {
             checkbox.checked = data.otherAttackBonus.includes(checkbox.value);
         });
         
-        // 恢复自定义攻击提升
+        // 恢复自定义攻击提升（他人攻击区）
         document.getElementById('customAttackBonusCheck').checked = data.customAttackBonusCheck;
-        document.getElementById('customAttackBonus').value = data.customAttackBonus;
-        document.getElementById('customAttackBonus').disabled = !data.customAttackBonusCheck;
+        document.getElementById('customOtherAttackBonus').value = data.customOtherAttackBonus || 0;
+        document.getElementById('customOtherAttackBonus').disabled = !data.customAttackBonusCheck;
         
         // 恢复单选按钮
         const defenseRadio = document.querySelector(`input[name="defenseType"][value="${data.defenseType}"]`);
@@ -404,19 +410,19 @@ function loadSavedData() {
             checkbox.checked = data.otherDamageBonus.includes(checkbox.value);
         });
         
-        // 恢复自定义增伤值
+        // 恢复自定义增伤值（他人增伤区）
         document.getElementById('customDamageBonusCheck').checked = data.customDamageBonusCheck;
-        document.getElementById('customDamageBonus').value = data.customDamageBonus;
-        document.getElementById('customDamageBonus').disabled = !data.customDamageBonusCheck;
+        document.getElementById('customOtherDamageBonus').value = data.customOtherDamageBonus || 0;
+        document.getElementById('customOtherDamageBonus').disabled = !data.customDamageBonusCheck;
         
         document.querySelectorAll('input[name="otherVulnerability"]').forEach(checkbox => {
             checkbox.checked = data.otherVulnerability.includes(checkbox.value);
         });
         
-        // 恢复自定义易伤值
+        // 恢复自定义易伤值（他人易伤区）
         document.getElementById('customVulnerabilityCheck').checked = data.customVulnerabilityCheck;
-        document.getElementById('customVulnerability').value = data.customVulnerability;
-        document.getElementById('customVulnerability').disabled = !data.customVulnerabilityCheck;
+        document.getElementById('customOtherVulnerability').value = data.customOtherVulnerability || 0;
+        document.getElementById('customOtherVulnerability').disabled = !data.customVulnerabilityCheck;
         
         // 恢复其他选项
         document.getElementById('superiorAttribute').checked = data.superiorAttribute;
@@ -426,9 +432,9 @@ function loadSavedData() {
         
         // 恢复自定义角色数据
         document.getElementById('customBaseAttack').value = data.customBaseAttack || 0;
-        document.getElementById('customAttackBonus').value = data.customAttackBonusValue || 0;
-        document.getElementById('customDamageBonusValue').value = data.customDamageBonusValue || 0;
-        document.getElementById('customVulnerabilityValue').value = data.customVulnerabilityValue || 0;
+        document.getElementById('customCharacterAttackBonus').value = data.customCharacterAttackBonus || 0;
+        document.getElementById('customCharacterDamageBonus').value = data.customCharacterDamageBonus || 0;
+        document.getElementById('customCharacterVulnerability').value = data.customCharacterVulnerability || 0;
         document.getElementById('customSkillMultiplier').value = data.customSkillMultiplier || 100;
         
         // 重新计算伤害
